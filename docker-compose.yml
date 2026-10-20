@@ -1,0 +1,26 @@
+# Local development services. Symfony and the frontend run on your machine, not in Docker.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: outpost
+    ports:
+      - "5435:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6382:6379"
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "1028:1025"
+      - "8028:8025"
+
+volumes:
+  db_data:
